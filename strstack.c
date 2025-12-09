@@ -4,10 +4,15 @@
 int main (void) {
 
 	char message[] = "Hello my friends!";
-	char my[] = "my";
+	char my[] = "";
 
 	char *stack = strstr(message, my);
-	printf("stack is: %s\n", stack);
+
+	if (stack == NULL){
+		printf("my = null");
+	}
+	else {
+		printf("stack is: %s\n", stack);
 
 	return 0;
 }
