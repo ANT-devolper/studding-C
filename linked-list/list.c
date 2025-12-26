@@ -8,19 +8,35 @@ typedef struct node {
 
 void print_list(Node *head);
 Node *insert_head(Node *head, int new_value);
+Node *insert_tail(Node *head, int new_value);
 
 int main(){
 	Node *list_head = NULL;
 
-	list_head = insert_head(list_head, 6);
-	list_head = insert_head(list_head, 9);
+	list_head = insert_tail(list_head, 3);
 	list_head = insert_head(list_head, 4);
+	list_head = insert_tail(list_head, 9);
+	list_head = insert_tail(list_head, 5);
+	list_head = insert_head(list_head, 1);
 	
 
 	print_list(list_head);
 	return 0;
 }
 
+Node *insert_tail(Node *head, int new_value){
+	Node *new_node = calloc(1, sizeof(Node));
+	new_node->value = new_value;
+	Node *current;
+	current = head;
+	if(head == NULL) return new_node;
+	else{
+		while(current->next != NULL) current = current->next;
+		current->next = new_node;
+		return head;
+		
+	}
+}
 
 // aqui é uma função para colocar um valor como head do node;
 // Onde se passa o valor da variavel Node e depois um valor inteiro;
