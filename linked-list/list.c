@@ -12,6 +12,7 @@ Node *insert_tail(Node *head, int new_value);
 Node *delete_head(Node *head);
 Node *delete_tail(Node *head);
 int legth(Node *head);
+int recursive_legth(Node *node);
 
 int main(){
 	Node *list_head = NULL;
@@ -26,10 +27,14 @@ int main(){
 	
 	print_list(list_head);
 
-	printf("legth: %d\n", legth(list_head));
+	printf("legth: %d\n", recursive_legth(list_head));
 	return 0;
 }
 
+int recursive_legth(Node *node){
+	if(node == NULL) return 0;
+	else return 1 + recursive_legth(node->next);
+}
 
 int legth(Node *head){
 	int leg = 0;
