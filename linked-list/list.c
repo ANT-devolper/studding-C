@@ -15,26 +15,30 @@ Node *delete_tail(Node *head);
 int legth(Node *head);
 int recursive_legth(Node *node);
 bool check_value(Node *head, int value);
+int count_value(Node *node, int value);
 
 int main(){
 	Node *list_head = NULL;
 
 	list_head = insert_head(list_head, 3);
-	list_head = insert_head(list_head, 6);
-	list_head = insert_head(list_head, 5);
 	list_head = insert_head(list_head, 1);
-	
-
-	
+	list_head = insert_head(list_head, 5);
+	list_head = insert_head(list_head, 3);
+	list_head = insert_head(list_head, 3);
+	list_head = insert_head(list_head, 1);
 	
 	print_list(list_head);
 
-	if(check_value(list_head, 3)) printf("valor de 3 esta na lista\n");
-	else printf("Valor de 3 não esta na lista\n");
-
-	if(check_value(list_head, 8)) printf("valor de 8 esta na lista\n");
-	else printf("Valor de 8 não esta na lista\n");
+	printf("number of 3s: %d\n", count_value(list_head, 3));
+	printf("number of 1s: %d\n", count_value(list_head, 1));
+	printf("number of 5s: %d\n", count_value(list_head, 5));
 	return 0;
+}
+
+int count_value(Node *node, int value){
+	if (node == NULL) return 0;
+	else if(node->value == value) return 1 + count_value(node->next, value);
+	else count_value(node->next, value);
 }
 
 bool check_value(Node *node, int value){
