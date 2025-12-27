@@ -10,18 +10,42 @@ void print_list(Node *head);
 Node *insert_head(Node *head, int new_value);
 Node *insert_tail(Node *head, int new_value);
 Node *delete_head(Node *head);
+Node *delete_tail(Node *head);
 
 int main(){
 	Node *list_head = NULL;
 
 	list_head = insert_head(list_head, 3);
-	list_head = insert_head(list_head, 4);
-	list_head = insert_tail(list_head, 5);
+	list_head = insert_head(list_head, 6);
+	list_head = insert_head(list_head, 5);
+	list_head = insert_head(list_head, 1);
+	
 
-	list_head = delete_head(list_head);
+	list_head = delete_tail(list_head);
 	
 	print_list(list_head);
 	return 0;
+}
+
+Node *delete_tail(Node *head){
+	if(head == NULL) return NULL; //Primeira verificação se não tiver node
+	else if(head->next == NULL){
+		// Segunda verificação se o node é o unico da lista
+		head = head->next;
+		free(head);
+		return NULL;
+	} else{
+		// Busca o ultimo node e salva o valor anterior para apontar como NULL
+		Node *current = head;
+		Node *prev = NULL;
+		while(current->next != NULL){
+			prev = current;
+			current = current->next;
+		}
+		prev->next = NULL;
+		free(current);
+		return head;
+	}
 }
 
 
@@ -29,6 +53,7 @@ Node *delete_head(Node *head){
 	if(head == NULL) return NULL;
 	else{
 		Node *to_return = head->next;
+		free(head);
 		return to_return;
 	}
 }
