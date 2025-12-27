@@ -11,6 +11,7 @@ Node *insert_head(Node *head, int new_value);
 Node *insert_tail(Node *head, int new_value);
 Node *delete_head(Node *head);
 Node *delete_tail(Node *head);
+int legth(Node *head);
 
 int main(){
 	Node *list_head = NULL;
@@ -24,7 +25,20 @@ int main(){
 	list_head = delete_tail(list_head);
 	
 	print_list(list_head);
+
+	printf("legth: %d\n", legth(list_head));
 	return 0;
+}
+
+
+int legth(Node *head){
+	int leg = 0;
+	Node *current = head;
+	while(current != NULL){
+		leg++;
+		current = current->next;
+	}
+	return leg;
 }
 
 Node *delete_tail(Node *head){
