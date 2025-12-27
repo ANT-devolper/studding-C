@@ -16,6 +16,7 @@ int legth(Node *head);
 int recursive_legth(Node *node);
 bool check_value(Node *head, int value);
 int count_value(Node *node, int value);
+void replace_matches(Node *node, int value, int replace_value);
 
 int main(){
 	Node *list_head = NULL;
@@ -26,13 +27,20 @@ int main(){
 	list_head = insert_head(list_head, 3);
 	list_head = insert_head(list_head, 3);
 	list_head = insert_head(list_head, 1);
-	
+	printf("Antes da troca:\n");
+	print_list(list_head);
+	printf("depois da troca:\n");
+	replace_matches(list_head, 3, 9);
 	print_list(list_head);
 
-	printf("number of 3s: %d\n", count_value(list_head, 3));
-	printf("number of 1s: %d\n", count_value(list_head, 1));
-	printf("number of 5s: %d\n", count_value(list_head, 5));
 	return 0;
+}
+
+void replace_matches(Node *node, int value, int replace_value){
+	if(node != NULL){
+		if(node->value == value)node->value = replace_value;
+		replace_matches(node->next, value, replace_value);
+	}
 }
 
 int count_value(Node *node, int value){
