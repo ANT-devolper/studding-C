@@ -17,6 +17,7 @@ int recursive_legth(Node *node);
 bool check_value(Node *head, int value);
 int count_value(Node *node, int value);
 void replace_matches(Node *node, int value, int replace_value);
+Node *delete_first_match(Node *head, int value, bool *deleted);
 
 int main(){
 	Node *list_head = NULL;
@@ -27,13 +28,54 @@ int main(){
 	list_head = insert_head(list_head, 3);
 	list_head = insert_head(list_head, 3);
 	list_head = insert_head(list_head, 1);
-	printf("Antes da troca:\n");
+	printf("Antes da exclusão\n");
 	print_list(list_head);
-	printf("depois da troca:\n");
-	replace_matches(list_head, 3, 9);
-	print_list(list_head);
+	
+	bool deleted;
+	printf("depois das exclusões\n");
 
+	list_head = delete_first_match(list_head, 1, &deleted);
+	if(deleted) printf("Deletado numero 1 na lista\n");
+	else printf("Numero 1 não foi deletado da lista\n");
+
+	list_head = delete_first_match(list_head, 6, &deleted);
+	if(deleted) printf("Deletado numero 6 na lista\n");
+	else printf("Numero 6 não foi deletado da lista\n");
+
+	print_list(list_head);
 	return 0;
+}
+
+Node *delete_first_match(Node *head, int value, bool *deleted){
+	if(head == NULL){
+		*deleted = false;
+		return NULL;
+	}
+	if(head->value == value){
+		Node *temp = head->next;
+		free(head);
+		*deleted = true;
+		return temp;
+	}
+
+	Node *current = head->next;
+	Node *prev= head;
+
+	while (current != NULL){
+		if(current->value == value){
+			prev->next = current->next;
+			free(current);
+			*deleted = true;
+			return head;
+		}
+
+		prev = current;
+		current = current->next;
+	}
+	
+	deleted = false;
+	return head;
+
 }
 
 void replace_matches(Node *node, int value, int replace_value){
