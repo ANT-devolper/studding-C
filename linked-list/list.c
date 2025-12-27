@@ -9,19 +9,28 @@ typedef struct node {
 void print_list(Node *head);
 Node *insert_head(Node *head, int new_value);
 Node *insert_tail(Node *head, int new_value);
+Node *delete_head(Node *head);
 
 int main(){
 	Node *list_head = NULL;
 
-	list_head = insert_tail(list_head, 3);
+	list_head = insert_head(list_head, 3);
 	list_head = insert_head(list_head, 4);
-	list_head = insert_tail(list_head, 9);
 	list_head = insert_tail(list_head, 5);
-	list_head = insert_head(list_head, 1);
-	
 
+	list_head = delete_head(list_head);
+	
 	print_list(list_head);
 	return 0;
+}
+
+
+Node *delete_head(Node *head){
+	if(head == NULL) return NULL;
+	else{
+		Node *to_return = head->next;
+		return to_return;
+	}
 }
 
 Node *insert_tail(Node *head, int new_value){
