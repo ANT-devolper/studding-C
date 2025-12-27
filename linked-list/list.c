@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct node {
 	int value;
@@ -13,6 +14,7 @@ Node *delete_head(Node *head);
 Node *delete_tail(Node *head);
 int legth(Node *head);
 int recursive_legth(Node *node);
+bool check_value(Node *head, int value);
 
 int main(){
 	Node *list_head = NULL;
@@ -23,12 +25,22 @@ int main(){
 	list_head = insert_head(list_head, 1);
 	
 
-	list_head = delete_tail(list_head);
+	
 	
 	print_list(list_head);
 
-	printf("legth: %d\n", recursive_legth(list_head));
+	if(check_value(list_head, 3)) printf("valor de 3 esta na lista\n");
+	else printf("Valor de 3 não esta na lista\n");
+
+	if(check_value(list_head, 8)) printf("valor de 8 esta na lista\n");
+	else printf("Valor de 8 não esta na lista\n");
 	return 0;
+}
+
+bool check_value(Node *node, int value){
+	if(node == NULL) return false;
+	else if(node->value == value) return true;
+	else return check_value(node->next, value);
 }
 
 int recursive_legth(Node *node){
