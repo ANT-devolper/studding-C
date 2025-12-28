@@ -18,6 +18,7 @@ bool check_value(Node *head, int value);
 int count_value(Node *node, int value);
 void replace_matches(Node *node, int value, int replace_value);
 Node *delete_first_match(Node *head, int value, bool *deleted);
+Node *delete_all_matches(Node *head, int value, int *delete_count);
 
 int main(){
 	Node *list_head = NULL;
@@ -31,19 +32,24 @@ int main(){
 	printf("Antes da exclusão\n");
 	print_list(list_head);
 	
-	bool deleted;
+	int num_deleted;
 	printf("depois das exclusões\n");
-
-	list_head = delete_first_match(list_head, 1, &deleted);
-	if(deleted) printf("Deletado numero 1 na lista\n");
-	else printf("Numero 1 não foi deletado da lista\n");
-
-	list_head = delete_first_match(list_head, 6, &deleted);
-	if(deleted) printf("Deletado numero 6 na lista\n");
-	else printf("Numero 6 não foi deletado da lista\n");
-
+	list_head = delete_all_matches(list_head, 3, &num_deleted);
 	print_list(list_head);
 	return 0;
+}
+
+Node *delete_all_matches(Node *head, int value, int *delete_count){
+	Node *current = head;
+	bool deleted = false;
+	*delete_count = 0;
+
+	do{
+		current = delete_first_match(current, value, &deleted);
+		if(deleted) *delete_count = *delete_count + 1;
+	}while(deleted);
+
+	return current;
 }
 
 Node *delete_first_match(Node *head, int value, bool *deleted){
@@ -73,7 +79,7 @@ Node *delete_first_match(Node *head, int value, bool *deleted){
 		current = current->next;
 	}
 	
-	deleted = false;
+	*deleted = false;
 	return head;
 
 }
