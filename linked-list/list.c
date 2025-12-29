@@ -19,24 +19,61 @@ int count_value(Node *node, int value);
 void replace_matches(Node *node, int value, int replace_value);
 Node *delete_first_match(Node *head, int value, bool *deleted);
 Node *delete_all_matches(Node *head, int value, int *delete_count);
+Node *eficient_delete_all_matches(Node *head, int value, int *delete_count);
 
 int main(){
 	Node *list_head = NULL;
 
-	list_head = insert_head(list_head, 3);
-	list_head = insert_head(list_head, 1);
-	list_head = insert_head(list_head, 5);
-	list_head = insert_head(list_head, 3);
-	list_head = insert_head(list_head, 3);
-	list_head = insert_head(list_head, 1);
-	printf("Antes da exclusão\n");
+	list_head = insert_tail(list_head, 4);
+	list_head = insert_tail(list_head, 3);
+	list_head = insert_tail(list_head, 4);
+	list_head = insert_tail(list_head, 3);
+	list_head = insert_tail(list_head, 7);
+	list_head = insert_tail(list_head, 3);
+	list_head = insert_tail(list_head, 3);
+	list_head = insert_tail(list_head, 3);
+	list_head = insert_tail(list_head, 1);
+	list_head = insert_tail(list_head, 3);
+	printf("Lista completa:\n");
 	print_list(list_head);
-	
-	int num_deleted;
-	printf("depois das exclusões\n");
-	list_head = delete_all_matches(list_head, 3, &num_deleted);
+
+	printf("Lista após deletes:\n");
+	int deleted = 0;
+	list_head = eficient_delete_all_matches(list_head, 3, &deleted);
 	print_list(list_head);
+	printf("Quantidade de 3 deletados : %d\n", deleted);
+
 	return 0;
+}
+
+Node *eficient_delete_all_matches(Node *head, int value, int *delete_count){
+	// esse é um metodo mais eficiente para excluir os nodes e buscar o valor
+	// node video tem uma diferença de alguns milisegundos em uma lista de 5000 itens simples de apenas numeros
+	*delete_count = 0;
+	if(head == NULL) return NULL;
+
+	Node *current, *temp, *new_head;
+	current = head;
+	while(current->value == value){
+		temp = current;
+		current = current->next;
+		free(temp);
+		*delete_count = *delete_count + 1;
+		if(current ==  NULL) return NULL;
+	}
+	
+	new_head = head;
+
+	while(current->next != NULL){
+		if(current->next->value == value){
+			temp = current->next;
+			current->next = current->next->next;
+			free(temp);
+			*delete_count = *delete_count + 1;
+		}
+		else current = current->next;
+	}
+	return new_head;
 }
 
 Node *delete_all_matches(Node *head, int value, int *delete_count){
