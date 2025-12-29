@@ -21,26 +21,40 @@ Node *delete_first_match(Node *head, int value, bool *deleted);
 Node *delete_all_matches(Node *head, int value, int *delete_count);
 Node *eficient_delete_all_matches(Node *head, int value, int *delete_count);
 Node *append_list(Node *head1, Node *head2);
+Node *reverse_list(Node *head);
 
 int main(){
 	Node *list_head1 = NULL;
 	Node *list_head2 = NULL;
 
-	for(int i = 0; i <= 3; i++) list_head1 = insert_tail(list_head1, i);
-	for(int i = 4; i <= 10; i++) list_head2 = insert_tail(list_head2, i);
-	
+	for(int i = 1; i <= 10; i++) list_head1 = insert_tail(list_head1, i);
 
-	printf("Lista 1:\n");
+	printf("Lista normal:\n");
 	print_list(list_head1);
 
-	printf("Lista 2:\n");
-	print_list(list_head2);
-
-	printf("Lista apendada:\n");
-	list_head1 = append_list(list_head1, list_head2);
+	list_head1 = reverse_list(list_head1);
+	printf("Lista invertida:\n");
 	print_list(list_head1);
 	
 	return 0;
+}
+
+Node *reverse_list(Node *head){
+	if(head == NULL) return NULL;
+	if(head->next == NULL) return head;
+
+	Node *current = head;
+	Node *next_node = head->next;
+
+	current->next = NULL;
+
+	while(next_node != NULL){
+		Node *tmp = next_node->next;
+		next_node->next = current;
+		current = next_node;
+		next_node = tmp;
+	}
+	return current;
 }
 
 Node *append_list(Node *head1, Node *head2){
