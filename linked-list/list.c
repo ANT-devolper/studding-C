@@ -20,30 +20,35 @@ void replace_matches(Node *node, int value, int replace_value);
 Node *delete_first_match(Node *head, int value, bool *deleted);
 Node *delete_all_matches(Node *head, int value, int *delete_count);
 Node *eficient_delete_all_matches(Node *head, int value, int *delete_count);
+Node *append_list(Node *head1, Node *head2);
 
 int main(){
-	Node *list_head = NULL;
+	Node *list_head1 = NULL;
+	Node *list_head2 = NULL;
 
-	list_head = insert_tail(list_head, 4);
-	list_head = insert_tail(list_head, 3);
-	list_head = insert_tail(list_head, 4);
-	list_head = insert_tail(list_head, 3);
-	list_head = insert_tail(list_head, 7);
-	list_head = insert_tail(list_head, 3);
-	list_head = insert_tail(list_head, 3);
-	list_head = insert_tail(list_head, 3);
-	list_head = insert_tail(list_head, 1);
-	list_head = insert_tail(list_head, 3);
-	printf("Lista completa:\n");
-	print_list(list_head);
+	for(int i = 0; i <= 3; i++) list_head1 = insert_tail(list_head1, i);
+	for(int i = 4; i <= 10; i++) list_head2 = insert_tail(list_head2, i);
+	
 
-	printf("Lista após deletes:\n");
-	int deleted = 0;
-	list_head = eficient_delete_all_matches(list_head, 3, &deleted);
-	print_list(list_head);
-	printf("Quantidade de 3 deletados : %d\n", deleted);
+	printf("Lista 1:\n");
+	print_list(list_head1);
 
+	printf("Lista 2:\n");
+	print_list(list_head2);
+
+	printf("Lista apendada:\n");
+	list_head1 = append_list(list_head1, list_head2);
+	print_list(list_head1);
+	
 	return 0;
+}
+
+Node *append_list(Node *head1, Node *head2){
+	if(head1 == NULL) return head2;
+	Node *current = head1;
+	while(current->next != NULL) current = current->next;
+	current->next = head2;
+	return head1;
 }
 
 Node *eficient_delete_all_matches(Node *head, int value, int *delete_count){
