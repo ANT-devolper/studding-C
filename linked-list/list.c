@@ -22,21 +22,50 @@ Node *delete_all_matches(Node *head, int value, int *delete_count);
 Node *eficient_delete_all_matches(Node *head, int value, int *delete_count);
 Node *append_list(Node *head1, Node *head2);
 Node *reverse_list(Node *head);
+void sort_list(Node *head);
 
 int main(){
 	Node *list_head1 = NULL;
 	Node *list_head2 = NULL;
 
-	for(int i = 1; i <= 10; i++) list_head1 = insert_tail(list_head1, i);
+	for(int i = 10; i >= 1; i--) list_head1 = insert_tail(list_head1, i);
 
 	printf("Lista normal:\n");
 	print_list(list_head1);
 
-	list_head1 = reverse_list(list_head1);
-	printf("Lista invertida:\n");
+	sort_list(list_head1);
+	printf("Lista ordenada:\n");
 	print_list(list_head1);
 	
 	return 0;
+}
+
+void sort_list(Node *head){
+	if(head == NULL) return ;
+	if(head->next == NULL) return ;
+
+	bool swaped = false;
+
+	do{
+		swaped = false;
+		Node *current = head;
+		Node *prev = NULL;
+
+		while(current->next != NULL){
+			prev = current;
+			current = current->next;
+			if(current != NULL){
+				if(current->value < prev->value){
+					int temp;
+					temp = prev->value;
+					prev->value = current->value;
+					current->value = temp;
+					swaped = true;
+				}
+			}
+
+		}
+	}while(swaped);
 }
 
 Node *reverse_list(Node *head){
