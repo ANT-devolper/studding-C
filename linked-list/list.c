@@ -27,34 +27,47 @@ void delete_duplicates(Node *head);
 Node *insert_after(Node *head, int new_value, int value);
 Node *insert_before(Node *head, int new_value, int value);
 Node *delete_list(Node *node);
+void sum_value(Node *node1, Node *node2);
 
 int main(){
 	Node *list_head1 = NULL;
 	Node *list_head2 = NULL;
 
-	list_head1 = insert_tail(list_head1, 1);
-	list_head1 = insert_tail(list_head1, 4);
-	list_head1 = insert_tail(list_head1, 6);
-	list_head1 = insert_tail(list_head1, 1);
+	list_head1 = insert_tail(list_head1, 2);
 	list_head1 = insert_tail(list_head1, 3);
 	
+	list_head2 = insert_tail(list_head2, 2);
+	list_head2 = insert_tail(list_head2, 2);
+	list_head2 = insert_tail(list_head2, 2);
+	
+	
 	
 	
 
 
-	printf("Lista normal:\n");
+	printf("Lista 1:\n");
 	print_list(list_head1);
 
-	list_head1 = insert_before(list_head1, 22, 4);
-	printf("Lista com insert:\n");
-	print_list(list_head1);
 	
-	list_head1 = delete_list(list_head1);
-	printf("Lista após delete:\n");
+	printf("Lista 2:\n");
+	print_list(list_head2);
+	
+	sum_value(list_head1, list_head2);
+	printf("Lista após sum:\n");
 	print_list(list_head1);
+
+	
 	
 
 	return 0;
+}
+
+void sum_value(Node *node1, Node *node2){
+	if(node1 != NULL && node2 != NULL){
+		node1->value = node1->value + node2->value;
+		if(node2->next != NULL) sum_value(node1->next, node2->next);
+		if(node1->next == NULL && node2->next != NULL) node1->next = node2->next;
+	}
 }
 
 Node *delete_list(Node *node){
@@ -359,4 +372,5 @@ void print_list(Node *head){
 		i++;
 		current = current->next;
 	}
+	printf("\n");
 }
