@@ -26,6 +26,7 @@ void sort_list(Node *head);
 void delete_duplicates(Node *head);
 Node *insert_after(Node *head, int new_value, int value);
 Node *insert_before(Node *head, int new_value, int value);
+Node *delete_list(Node *node);
 
 int main(){
 	Node *list_head1 = NULL;
@@ -48,7 +49,20 @@ int main(){
 	printf("Lista com insert:\n");
 	print_list(list_head1);
 	
+	list_head1 = delete_list(list_head1);
+	printf("Lista após delete:\n");
+	print_list(list_head1);
+	
+
 	return 0;
+}
+
+Node *delete_list(Node *node){
+	if(node != NULL){
+		delete_list(node->next);
+		free(node);
+	}
+	return NULL;
 }
 
 Node *insert_before(Node *head, int new_value, int value){
