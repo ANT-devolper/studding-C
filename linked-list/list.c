@@ -24,6 +24,7 @@ Node *append_list(Node *head1, Node *head2);
 Node *reverse_list(Node *head);
 void sort_list(Node *head);
 void delete_duplicates(Node *head);
+Node *insert_after(Node *head, int new_value, int value);
 
 int main(){
 	Node *list_head1 = NULL;
@@ -31,28 +32,42 @@ int main(){
 
 	list_head1 = insert_tail(list_head1, 1);
 	list_head1 = insert_tail(list_head1, 4);
-	list_head1 = insert_tail(list_head1, 1);
+	list_head1 = insert_tail(list_head1, 6);
 	list_head1 = insert_tail(list_head1, 1);
 	list_head1 = insert_tail(list_head1, 5);
 	list_head1 = insert_tail(list_head1, 7);
-	list_head1 = insert_tail(list_head1, 8);
-	list_head1 = insert_tail(list_head1, 1);
-	list_head1 = insert_tail(list_head1, 5);
-	list_head1 = insert_tail(list_head1, 8);
-	list_head1 = insert_tail(list_head1, 1);
-	list_head1 = insert_tail(list_head1, 5);
-	list_head1 = insert_tail(list_head1, 1);
-	list_head1 = insert_tail(list_head1, 8);
+	
 
 
 	printf("Lista normal:\n");
 	print_list(list_head1);
 
-	delete_duplicates(list_head1);
-	printf("Lista ordenada:\n");
+	list_head1 = insert_after(list_head1, 22, 4);
+	printf("Lista com insert:\n");
 	print_list(list_head1);
 	
 	return 0;
+}
+
+Node *insert_after(Node *head, int new_value, int value){
+	Node *new_node = calloc(1, sizeof(Node));
+	new_node->value = new_value;
+	
+	if(head == NULL) return	new_node;
+	else{
+		Node *current = head;
+		while(current->next != NULL){
+			if(current->value == value){
+				new_node->next = current->next;
+				current->next = new_node;
+				return head;
+			}
+			else current = current->next;
+		}
+		new_node->next = current->next;
+		current->next = new_node;
+		return head;
+	}
 }
 
 void delete_duplicates(Node *head){
