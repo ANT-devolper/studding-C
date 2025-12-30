@@ -23,21 +23,56 @@ Node *eficient_delete_all_matches(Node *head, int value, int *delete_count);
 Node *append_list(Node *head1, Node *head2);
 Node *reverse_list(Node *head);
 void sort_list(Node *head);
+void delete_duplicates(Node *head);
 
 int main(){
 	Node *list_head1 = NULL;
 	Node *list_head2 = NULL;
 
-	for(int i = 10; i >= 1; i--) list_head1 = insert_tail(list_head1, i);
+	list_head1 = insert_tail(list_head1, 1);
+	list_head1 = insert_tail(list_head1, 4);
+	list_head1 = insert_tail(list_head1, 1);
+	list_head1 = insert_tail(list_head1, 1);
+	list_head1 = insert_tail(list_head1, 5);
+	list_head1 = insert_tail(list_head1, 7);
+	list_head1 = insert_tail(list_head1, 8);
+	list_head1 = insert_tail(list_head1, 1);
+	list_head1 = insert_tail(list_head1, 5);
+	list_head1 = insert_tail(list_head1, 8);
+	list_head1 = insert_tail(list_head1, 1);
+	list_head1 = insert_tail(list_head1, 5);
+	list_head1 = insert_tail(list_head1, 1);
+	list_head1 = insert_tail(list_head1, 8);
+
 
 	printf("Lista normal:\n");
 	print_list(list_head1);
 
-	sort_list(list_head1);
+	delete_duplicates(list_head1);
 	printf("Lista ordenada:\n");
 	print_list(list_head1);
 	
 	return 0;
+}
+
+void delete_duplicates(Node *head){
+	if(head == NULL) return ;
+	if(head->next == NULL) return ;
+
+	Node *current1, *current2, *duplicate;
+	current1 = head;
+
+	while(current1 != NULL && current1->next != NULL){
+		current2 = current1;
+		while(current2->next != NULL){
+			if(current1->value == current2->next->value){
+				duplicate = current2->next;
+				current2->next = current2->next->next;
+				free(duplicate);
+			}else current2 = current2->next;
+		}
+		current1 = current1->next;
+	}
 }
 
 void sort_list(Node *head){
