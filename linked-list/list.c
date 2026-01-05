@@ -63,11 +63,9 @@ int main(){
 }
 
 void sum_value(Node *node1, Node *node2){
-	if(node1 != NULL && node2 != NULL){
-		node1->value = node1->value + node2->value;
-		if(node2->next != NULL) sum_value(node1->next, node2->next);
-		if(node1->next == NULL && node2->next != NULL) node1->next = node2->next;
-	}
+	if(node1 == NULL || node2 == NULL) return ;
+	node1->value = node1->value + node2->value;
+	sum_value(node1->next, node2->next);
 }
 
 Node *delete_list(Node *node){
