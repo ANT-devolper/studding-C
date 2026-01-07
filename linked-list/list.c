@@ -62,6 +62,12 @@ int main(){
 	return 0;
 }
 
+Node *duplicate_list(Node *node){
+	if(node == NULL) return NULL;
+
+	Node *new_node = calloc(sizeof(Node), 1);
+}
+
 void sum_value(Node *node1, Node *node2){
 	if(node1 == NULL || node2 == NULL) return ;
 	node1->value = node1->value + node2->value;
