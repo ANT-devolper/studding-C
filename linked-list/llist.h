@@ -1,8 +1,17 @@
+/**
+ * Linked lsit library
+ * @file llist.h
+ * @author Antonio
+ * @date 13th january 2026
+ */
 #include <stdbool.h>
 
+/**
+ * A node in linked list
+ */
 typedef struct node {
-	int value;
-	struct node *next;
+	int value;/**<value stored in the node */
+	struct node *next; /**<pointer to the next node */
 } Node;
 
 void print_list(Node *head);

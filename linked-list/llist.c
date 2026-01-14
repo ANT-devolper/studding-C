@@ -1,9 +1,19 @@
+/**
+ * Linked list library
+ * @file llist.c
+ * @author Antonio
+ * @date 13th january 2026
+ */
 #include "llist.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-
+/**
+ *  Duplicate the list passed into a new list
+ * @param list will be duplicated
+ * @return duplicated list into a new list
+ */
 
 Node *duplicate_list(Node *node){
 	if(node == NULL) return NULL;

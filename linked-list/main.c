@@ -14,11 +14,6 @@ int main(){
 	list_head2 = insert_tail(list_head2, 2);
 	list_head2 = insert_tail(list_head2, 2);
 	list_head2 = insert_tail(list_head2, 2);
-	
-	
-	
-	
-
 
 	printf("Lista 1:\n");
 	print_list(list_head1);
@@ -31,8 +26,6 @@ int main(){
 	printf("Lista após sum:\n");
 	print_list(list_head1);
 
-	
-	
 
 	return 0;
 }
