@@ -1,9 +1,9 @@
 var indexSectionsWithContent =
 {
-  0: "dlnv",
+  0: "dilnsv",
   1: "n",
   2: "l",
-  3: "d",
+  3: "dis",
   4: "nv",
   5: "n"
 };

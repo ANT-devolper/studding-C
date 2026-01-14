@@ -11,7 +11,7 @@
 
 /**
  *  Duplicate the list passed into a new list
- * @param list will be duplicated
+ * @param node list will be duplicated
  * @return duplicated list into a new list
  */
 
@@ -21,12 +21,21 @@ Node *duplicate_list(Node *node){
 	Node *new_node = calloc(sizeof(Node), 1);
 }
 
+/**
+ * Sum values of two nodes passed on the arguments recursively
+ * @param node1  list will be sumed and stored the value
+ * @param node2 list to sum on first argument
+ */
 void sum_value(Node *node1, Node *node2){
 	if(node1 == NULL || node2 == NULL) return ;
 	node1->value = node1->value + node2->value;
 	sum_value(node1->next, node2->next);
 }
 
+/**
+ * Delete all values stored on a linked list recursively
+ * @param node list to delete all values
+ */
 Node *delete_list(Node *node){
 	if(node != NULL){
 		delete_list(node->next);
@@ -35,6 +44,12 @@ Node *delete_list(Node *node){
 	return NULL;
 }
 
+/**
+ * Insert a value befora a value passed on the arguments
+ * @param head list will be added a value
+ * @param new_value value to be added on the list
+ * @param value value to comparate
+ */
 Node *insert_before(Node *head, int new_value, int value){
 	Node *new_node = calloc(1, sizeof(Node));
 	new_node->value = new_value;
@@ -58,6 +73,12 @@ Node *insert_before(Node *head, int new_value, int value){
 		return head;
 }
 
+/**
+ * Insert a value after a value passed on the arguments
+ * @param head list will be added a value
+ * @param new_value value will be added at the list
+ * @param value value will be comparated
+ */
 Node *insert_after(Node *head, int new_value, int value){
 	Node *new_node = calloc(1, sizeof(Node));
 	new_node->value = new_value;
