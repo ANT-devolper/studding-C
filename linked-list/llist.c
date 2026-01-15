@@ -10,9 +10,10 @@
 #include <stdbool.h>
 
 /**
- *  Duplicate the list passed into a new list
- * @param node list will be duplicated
- * @return duplicated list into a new list
+ *  Duplicates the list in an informed Node variable, exeple:\n
+ *  Node list2 = duplicate_list(list1); 
+ * @param node head node of the list that will be duplicated
+ * @return duplicated list into Node variabel type
  */
 
 Node *duplicate_list(Node *node){
@@ -22,9 +23,9 @@ Node *duplicate_list(Node *node){
 }
 
 /**
- * Sum values of two nodes passed on the arguments recursively
- * @param node1  list will be sumed and stored the value
- * @param node2 list to sum on first argument
+ * Sums the values of two nodes by storing the sum in the firts parameter
+ * @param node1  head node where the sum value will be stored
+ * @param node2 head node that will be added whitin the firts parameter
  */
 void sum_value(Node *node1, Node *node2){
 	if(node1 == NULL || node2 == NULL) return ;
@@ -33,8 +34,8 @@ void sum_value(Node *node1, Node *node2){
 }
 
 /**
- * Delete all values stored on a linked list recursively
- * @param node list to delete all values
+ * Deletes all linked list values stored in the argument recursively
+ * @param node head node of the list to will be delete all values
  */
 Node *delete_list(Node *node){
 	if(node != NULL){
@@ -45,10 +46,10 @@ Node *delete_list(Node *node){
 }
 
 /**
- * Insert a value befora a value passed on the arguments
- * @param head list will be added a value
- * @param new_value value to be added on the list
- * @param value value to comparate
+ * Adds a value before a value entered in the arguments
+ * @param head head node of the list will be added a value
+ * @param new_value value to be added on the list before other value
+ * @param value value to be searched for in the list
  */
 Node *insert_before(Node *head, int new_value, int value){
 	Node *new_node = calloc(1, sizeof(Node));
@@ -74,10 +75,10 @@ Node *insert_before(Node *head, int new_value, int value){
 }
 
 /**
- * Insert a value after a value passed on the arguments
- * @param head list will be added a value
- * @param new_value value will be added at the list
- * @param value value will be comparated
+ * Adds a value after a value entered in the arguments
+ * @param head head node of the list will be added a value
+ * @param new_value value to be added on the list after other value
+ * @param value value to be searched for in the list
  */
 Node *insert_after(Node *head, int new_value, int value){
 	Node *new_node = calloc(1, sizeof(Node));
@@ -100,6 +101,10 @@ Node *insert_after(Node *head, int new_value, int value){
 	}
 }
 
+/**
+ * Deletes all duplicate value in the list , keeping the first one value in the list
+ * @param head head node in the list will be delete duplicated value
+ */
 void delete_duplicates(Node *head){
 	if(head == NULL) return ;
 	if(head->next == NULL) return ;
@@ -120,6 +125,10 @@ void delete_duplicates(Node *head){
 	}
 }
 
+/**
+ * sort (orderna) the values in the list from smallest to largest
+ * @param head head node in the list will be sorted
+ */
 void sort_list(Node *head){
 	if(head == NULL) return ;
 	if(head->next == NULL) return ;
