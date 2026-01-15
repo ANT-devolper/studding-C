@@ -156,7 +156,11 @@ void sort_list(Node *head){
 		}
 	}while(swaped);
 }
-
+/**
+ * Reverses the order of the nodes in the linke d list
+ * @param head head node in the list will be reversed
+ * 
+ */
 Node *reverse_list(Node *head){
 	if(head == NULL) return NULL;
 	if(head->next == NULL) return head;
@@ -175,6 +179,11 @@ Node *reverse_list(Node *head){
 	return current;
 }
 
+/**
+ * Add the second list provided  to the end of the first lsit 
+ * @param head1 head node of the list will be added
+ * @param 
+ */
 Node *append_list(Node *head1, Node *head2){
 	if(head1 == NULL) return head2;
 	Node *current = head1;
