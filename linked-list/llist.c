@@ -181,8 +181,8 @@ Node *reverse_list(Node *head){
 
 /**
  * Add the second list provided  to the end of the first lsit 
- * @param head1 head node of the list will be added
- * @param 
+ * @param head1 head node of the list will recive second other list
+ * @param head2 head node of the list will be added on firts argument
  */
 Node *append_list(Node *head1, Node *head2){
 	if(head1 == NULL) return head2;
@@ -192,6 +192,12 @@ Node *append_list(Node *head1, Node *head2){
 	return head1;
 }
 
+/**
+ * Dele all matches value in the linked list passed on the parameters
+ * @param head head node in the list will be delete matches values
+ * @param value int value to be deleted in the linked list
+ * @param delete_count pointer to a variable to stored qauntity of this value in the list
+ */
 Node *eficient_delete_all_matches(Node *head, int value, int *delete_count){
 	// esse é um metodo mais eficiente para excluir os nodes e buscar o valor
 	// node video tem uma diferença de alguns milisegundos em uma lista de 5000 itens simples de apenas numeros
@@ -222,6 +228,12 @@ Node *eficient_delete_all_matches(Node *head, int value, int *delete_count){
 	return new_head;
 }
 
+/**
+ * Ineficient method to delete all matches values in the linked list
+ * @param head head node in the list will be delete matches values
+ * @param value int value to be deleted in the linked list
+ * @param delete_count pointer to a variable to stored qauntity of this value in the list
+ */
 Node *delete_all_matches(Node *head, int value, int *delete_count){
 	Node *current = head;
 	bool deleted = false;
@@ -267,6 +279,12 @@ Node *delete_first_match(Node *head, int value, bool *deleted){
 
 }
 
+/**
+ * Replace all values to other value in the list
+ * @param node head node vaue to will be replace values
+ * @param value int value to be searched in the list
+ * @param replace_value int value to replace in the list
+ */
 void replace_matches(Node *node, int value, int replace_value){
 	if(node != NULL){
 		if(node->value == value)node->value = replace_value;
