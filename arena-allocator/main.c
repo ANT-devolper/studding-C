@@ -23,3 +23,16 @@ typedef i32 b32;
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a,b) (((a) > (b)) ? (a) : (b))
 #define ALING_UP_POU2(n, p) (((u64)(n) + ((u64)(p) - 1 )) & (~((u64)(p) - 1)))
+
+typedef struct {
+    u64 capacity;
+    u64 pos;
+} mem_arena;
+
+mem_arena* arena_create(u64 capity);
+void arena_destroy(mem_arena* arena);
+
+void* arena_push(mem_arena* arena, u64 size);
+void arena_pop(mem_arena* arena, u64 size);
+void arena_pop_to(mem_arena* arena, u64 pos);
+void arena_clear(mem_arena* arena);
