@@ -16,3 +16,10 @@ typedef uint64_t u64;
 typedef i8 b8;
 typedef i32 b32;
 
+#define KiB(n) ((u64)(n) << 10)
+#define MiB(n) ((u64)(n) << 20)
+#define GiB(n) ((u64)(n) << 30)
+
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define MAX(a,b) (((a) > (b)) ? (a) : (b))
+#define ALING_UP_POU2(n, p) (((u64)(n) + ((u64)(p) - 1 )) & (~((u64)(p) - 1)))
