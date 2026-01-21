@@ -57,8 +57,16 @@ void arena_clear(mem_arena* arena);
 #define PUSH_ARRAY(arena, T, n) (T*)arena_push((arena), sizeof(T) * (n), false)
 #define PUSH_ARRAY_NZ(arena, T) (T*)arena_push((arena), sizeof(T) * (n), true)
 
-int main(void){
+void* plat_mem_reserve(u64 size);
+b32 plat_mem_commit(void* ptr, u64 size);
+b32 plat_mem_decommit(void* ptr, u64 size);
+b32 plat_mem_release(void* ptr, u64 size);
 
+int main(void){
+    mem_arena* perm_arena = arena_create(Mib(1));
+
+    arena_destroy(perm_arena);
+    
     return 0;
 }
 
@@ -97,3 +105,12 @@ void arena_pop_to(mem_arena* arena, u64 pos){
 void arena_clear(mem_arena* arena){
     arena_pop_to(arena, ARENA_BASE_POS);
 }
+
+#ifdef _WIN32
+
+    void* plat_mem_reserve(u64 size);
+    b32 plat_mem_commit(void* ptr, u64 size);
+    b32 plat_mem_decommit(void* ptr, u64 size);
+    b32 plat_mem_release(void* ptr, u64 size);
+
+#endif
