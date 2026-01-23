@@ -35,7 +35,7 @@ typedef i32 b32;
 /**
  * Aling macros
  */
-#define ALING_UP_POU2(n, p) (((u64)(n) + ((u64)(p) - 1 )) & (~((u64)(p) - 1)))
+#define ALING_UP_POW2(n, p) (((u64)(n) + ((u64)(p) - 1 )) & (~((u64)(p) - 1)))
 #define ARENA_BASE_POS (sizeof(mem_arena))
 #define ARENA_ALING (sizeof(void*))
 
@@ -66,7 +66,12 @@ b32 plat_mem_decommit(void* ptr, u64 size);
 b32 plat_mem_release(void* ptr, u64 size);
 
 int main(void){
-    mem_arena* perm_arena = arena_create(Mib(1));
+    mem_arena* perm_arena = arena_create(GiB(1), MiB(1));
+
+    while(1){
+        arena_push(perm_arena, MiB(16), false);
+        getc(stdin);
+    }
 
     arena_destroy(perm_arena);
     
@@ -74,7 +79,7 @@ int main(void){
 }
 
 mem_arena* arena_create(u64 reserve_size, u64 commit_size){
-    u32 pagesize =plat_get_pagesize();
+    u32 pagesize = plat_get_pagesize();
     reserve_size = ALING_UP_POW2(reserve_size, pagesize);
     commit_size = ALING_UP_POW2(commit_size, pagesize);
 
@@ -92,13 +97,29 @@ mem_arena* arena_create(u64 reserve_size, u64 commit_size){
     return arena;
 }
 void arena_destroy(mem_arena* arena){
-    free(arena);
+    plat_mem__release(arena, arena->reserve_size);
 }
 void* arena_push(mem_arena* arena, u64 size, b32 non_zero){
     u64 pos_aligned = ALING_UP_POW2(arena->pos, ARENA_ALING);
     u64 new_pos = pos_aligned + size;
 
-    if (new_pos > arena->capacity) return NULL;
+    if (new_pos > arena->reserve_size) return NULL;
+
+    if (new_pos > arena->commit_pos){
+        u64 new_commit_pos = new_pos;
+        new_commit_pos += arena->commit_size - 1;
+        new_commit_pos -= new_commit_pos % arena->commit_size;
+        new_commit_pos = MIN(new_commit_pos, arena->reserve_size);
+        
+        u8* mem = (u8*)arena + arena->commit_pos;
+        u64 commit_size = new_commit_pos - arena->commit_pos;
+
+        if (!plat_mem_commit(mem, commit_size)) {
+            return NULL;
+        }
+
+        arena->pos = new_pos;
+    }
     
     arena->pos = new_pos;
 
